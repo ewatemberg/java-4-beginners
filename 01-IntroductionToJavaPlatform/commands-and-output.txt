@@ -1,0 +1,23 @@
+jshell> System.out.println("I love JShell");
+I love JShell
+
+jshell> class HelloWorld {}
+|  created class HelloWorld
+
+jshell> HelloWorld hello = new HelloWorld()
+hello ==> HelloWorld@6e06451e
+
+jshell> void sayHelloWorld() { System.out.println("Hello World"); }
+|  created method sayHelloWorld()
+
+jshell> void sayHello(String name) { System.out.println("Hello " + name);}
+|  created method sayHello()
+
+ 
+jshell> /methods
+|    void sayHelloWorld()
+|    void sayHello(string)
+
+jshell> /clear
+ 
+jshell> /exit
