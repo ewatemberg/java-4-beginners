@@ -7,6 +7,10 @@
 - JRE = JVM + Libraries + Other Components 
 - JDK = JRE + Compilers + Debuggers
 
+##### In the java bin folder, open a Command Shell and run
+
+    javac HelloWorld.java
+
 ### Info
-[in28minutes][https://github.com/in28minutes/java-a-course-for-beginners]
-[jShell][https://www.adictosaltrabajo.com/2016/03/23/jshell-una-consola-repl-como-novedad-en-java-9/]
+[in28minutes](https://github.com/in28minutes/java-a-course-for-beginners)
+[jShell](https://www.adictosaltrabajo.com/2016/03/23/jshell-una-consola-repl-como-novedad-en-java-9/)
