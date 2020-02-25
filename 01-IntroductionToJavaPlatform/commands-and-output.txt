@@ -1,3 +1,6 @@
+In the java bin folder, open a Command Shell and run ./jshell
+-------------------------------------------------
+
 jshell> System.out.println("I love JShell");
 I love JShell
 
