@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/in28minutes/java-cheat-sheet/master/images/java-write-once-run-anywhere.png)
+![](https://github.com/ewatemberg/java-4-beginners/blob/master/01-IntroductionToJavaPlatform/java-write-once-run-anywhere.png?raw=true)
 
 
 # JDK vs JRE vs JVM
@@ -6,6 +6,8 @@
 - JVM (Java Virtual Machine) runs Java bytecode.
 - JRE = JVM + Libraries + Other Components 
 - JDK = JRE + Compilers + Debuggers
+
+
 
 ##### In the java bin folder, open a Command Shell and run
 
