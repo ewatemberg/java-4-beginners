@@ -8,7 +8,5 @@
 - JDK = JRE + Compilers + Debuggers
 
 ### Info
-[in28minutes][]
-[jShell][]
-[jShell]: https://www.adictosaltrabajo.com/2016/03/23/jshell-una-consola-repl-como-novedad-en-java-9/
-[in28minutes]: https://github.com/in28minutes/java-a-course-for-beginners
+[in28minutes][https://github.com/in28minutes/java-a-course-for-beginners]
+[jShell][https://www.adictosaltrabajo.com/2016/03/23/jshell-una-consola-repl-como-novedad-en-java-9/]
