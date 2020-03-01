@@ -4,7 +4,7 @@ Curso Java para principiantes
 
 ## Inicio
 
-* [01 - Java Esencial]() - Introduccion a Java
+* [01 - Java Esencial](https://github.com/ewatemberg/java-4-beginners/blob/master/docs/01%20-%20JAVA%20ESENCIAL.md) - Introduccion a Java
 * [02 - Introducción POO]() - Introduccion a la Programación Orientada a Objetos
 * [03 - Introducción POO II]() - 
 
