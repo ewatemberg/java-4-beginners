@@ -11,9 +11,38 @@
 
 ##### In the java bin folder, open a Command Shell and run
 
-    javac HelloWorld.java
+    javac HelloWorld.java  
+    
+##### Using JShell
+In the java bin folder, open a Command Shell and run
+```
+jshell> System.out.println("I love JShell");
+I love JShell
 
-##### Info
+jshell> class HelloWorld {}
+|  created class HelloWorld
+
+jshell> HelloWorld hello = new HelloWorld()
+hello ==> HelloWorld@6e06451e
+
+jshell> void sayHelloWorld() { System.out.println("Hello World"); }
+|  created method sayHelloWorld()
+
+jshell> void sayHello(String name) { System.out.println("Hello " + name);}
+|  created method sayHello()
+
+ 
+jshell> /methods
+|    void sayHelloWorld()
+|    void sayHello(string)
+
+jshell> /clear
+ 
+jshell> /exit
+```
+    
+
+##### Fuente
 
 * [jShell](https://www.adictosaltrabajo.com/2016/03/23/jshell-una-consola-repl-como-novedad-en-java-9/)
 * [in28minutes](https://github.com/in28minutes/java-a-course-for-beginners)
