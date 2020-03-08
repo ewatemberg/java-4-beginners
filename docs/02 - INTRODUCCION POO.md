@@ -36,7 +36,6 @@ Ejemplo: Imaginemos que queremos aplicar la abstracción a las aves:
 ### Clase
 La clase es un modelo o prototipo que define las variables y métodos comunes a todos los objetos de cierta clase. Es una plantilla genérica para un conjunto de objetos de similares características. Una clase define el estado y el comportamiento que todos los objetos creados a partir de esa clase tendrán.
 
-Ejemplo:
 ![](https://github.com/ewatemberg/java-4-beginners/blob/master/docs/img/Clase.png?raw=true)
 
 ### Atributo
@@ -52,7 +51,6 @@ Un objeto es una instancia de una clase, que tiene: identidad, estado(atributos)
 Es la particularización, realización específica u ocurrencia de una determinada clase.
 Una instancia de una clase es un objeto.
 
-Ejemplo:
 ![](https://github.com/ewatemberg/java-4-beginners/blob/master/docs/img/Instancia.png?raw=true)
 
 ### Mensaje
@@ -66,7 +64,6 @@ Los mensajes permiten la comunicacion entre objetos.
 - Puede tomar argumentos pero no puede retornar un valor.
 - Se puede tener mas de un constructor en una clase.
 
-Ejemplo:
 ![](https://github.com/ewatemberg/java-4-beginners/blob/master/docs/img/Constructor.png?raw=true)
  
 ### Métodos
