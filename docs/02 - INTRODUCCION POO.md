@@ -44,6 +44,31 @@ Es una característica de un objeto, que ayuda a definir su estructura y permite
 ### Método
 Los métodos son los comportamientos o conductas de un objeto y permite identificar la forma en que actúa respecto a su entorno o respecto a otros objetos. Además, representa una operación o función que un objeto realiza. El conjunto de los métodos de un objeto determinan el comportamiento general del objeto.
 
+```java
+//Le damos un nombre "MiClase" a la clase
+public class MiClase
+{
+    //Atributos de la clase
+    private String atributo1;
+    private int atributo 2;
+    private float atributo 3;
+
+    //Constructor con el mismo nombre de la clase
+    public MiClase(){}
+
+    //Métodos de la clase
+    public void metodo1()
+    {
+        //Método vacio
+    }
+
+    public String metodo2()
+    {
+        return "metodo2";
+    }
+}
+```
+
 ### Objeto
 Un objeto es una instancia de una clase, que tiene: identidad, estado(atributos) y comportamiento(metodos)
 
@@ -80,6 +105,30 @@ tipo-retorno nombre(lista parámetros){
 * El **nombre** del método se especifica por nombre. Puede ser cualquier identificador legal que no sea el que ya utilizan otros elementos dentro del alcance actual.
 * La **lista de parámetros** es una secuencia de tipos e identificadores separados por comas. Los parámetros son esencialmente variables que reciben el valor de los argumentos pasados al método cuando se llama. Si el método no tiene parámetros, la lista de parámetros estará vacía
 
+```java
+//Le damos un nombre "MiClase" a la clase
+public class MiClase
+{
+    //Atributos de la clase
+    private String atributo1;
+    private int atributo 2;
+    private float atributo 3;
+
+    //Constructor con el mismo nombre de la clase
+    public MiClase(){}
+
+    //Métodos de la clase
+    public void metodo1()
+    {
+        //Método vacio
+    }
+
+    public String metodo2()
+    {
+        return "metodo2";
+    }
+}
+```
 
 ##### Fuente
 
