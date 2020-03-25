@@ -50,11 +50,53 @@ Son palabras claves de los lenguajes de programación orientado a objetos para c
 
 ![](https://github.com/ewatemberg/java-4-beginners/blob/master/docs/img/ModificadoresAcceso.png?raw=true)
 
-### Modularidad
 ### Encapsulamiento
+*Es la propiedad que permite asegurar que la información de un objeto está oculta del mundo exterior.*
+El usuario de una clase en particular no necesita saber cómo están estructurados los datos dentro de ese objeto, es decir, un usuario no necesita conocer la implementación Al evitar que el usuario modifique los atributos directamente y forzándolo a utilizar funciones definidas para modificarlos (llamadas interfaces), se garantiza la integridad de los datos (por ejemplo, uno puede asegurarse de que el tipo de datos suministrados cumple con nuestras expectativas, o icluso que los datos se encuentran dentro del intervalo esperado).
+
 ### Herencia
+La herencia es específica de la programación orientada a objetos, donde una clase nueva se crea a partir de una clase existente. La herencia (a la que habitualmente se denomina subclase) proviene del hecho de que la subclase (la nueva clase creada) contiene las atributos y métodos de la clase primaria. La principal ventaja de la herencia es la capacidad para definir atributos y métodos nuevos para la subclase, que luego se aplican a los atributos y métodos heredados.
+Esta particularidad permite crear una estructura jerárquica de clases cada vez más especializada. La gran ventaja es que uno ya no debe comenzar desde cero cuando desea especializar una clase existente.
+
+**Herencia Simple** 
+La relación padre-hijo entre clases puede representarse desde un punto de vista jerárquico, denominado vista de clases en árbol. 
+
+![](https://github.com/ewatemberg/java-4-beginners/blob/master/docs/img/HerenciaSimple.png?raw=true)
+
+**Herencia Multiple**
+Algunos lenguajes orientados a objetos, como C++ permiten herencias múltiples, lo que significa que una clase puede heredar los atributos de otras dos superclases. Este método puede utilizarse para agrupar atributos y métodos desde varias clases dentro de una sola.
+
+![](https://github.com/ewatemberg/java-4-beginners/blob/master/docs/img/HerenciaMultiple.png?raw=true) 
+
 ### Polimorfismo
+Son comportamientos diferentes, asociados a objetos distintos, pueden compartir el mismo nombre; al llamarlos por ese nombre se utilizará el comportamiento correspondiente al objeto que se esté usando.
+
+![](https://github.com/ewatemberg/java-4-beginners/blob/master/docs/img/Polimorfismo.png?raw=true) 
+
+**Tipos**
+- Polimorfismo Ad-Hoc:
+Se refiere a funciones que cambian su comportamiento dependiendo del tipo de argumentos que reciben (sobrecarga de métodos o funciones).
+La sobrecarga de métodos hace referencia a varios métodos con el mismo nombre pero con diferentes firmas.
+
+![](https://github.com/ewatemberg/java-4-beginners/blob/master/docs/img/PolimorfismoAdHoc.jpg?raw=true) 
+
+- Polimorfismo parámetrico:
+El polimorfismo paramétrico permite que las funciones y las clases puedan escribirse de forma genérica, de tal manera que pueda manipular los datos de la misma manera sin importar el tipo.Ejemplos:
+C++ - Templates
+Java - Generics (>> *esto lo vamos a ver mas adelante*)
+
 ### Atributos estáticos
+- Los atributos y métodos estáticos también se llaman atributos de clase y métodos de clase. 
+- No es específico de cada objeto. Solo hay una copia del mismo y su valor es compartido por todos los objetos de la clase.
+- Podemos considerarlo como una variable global a la que tienen acceso todos los objetos de la clase.
+- Existe y puede utilizarse aunque no existan objetos de la clase.
+Para acceder a un atributo de clase se escibe: NombreClase.atributo
+
+![](https://github.com/ewatemberg/java-4-beginners/blob/master/docs/img/AtributosEstaticos.png?raw=true)
+
 ### Métodos estáticos
-### Clases estáticas
-### Hilos
+- Tiene acceso solo a los atributos estáticos de la clase.
+- No es necesario instanciar un objeto para poder utilizarlo.
+Para acceder a un método de clase se escribe: NombreClase.método()
+
+![](https://github.com/ewatemberg/java-4-beginners/blob/master/docs/img/MetodosEstaticos.png?raw=true)
