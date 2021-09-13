@@ -6,12 +6,7 @@ Curso Java para principiantes
 
 * [01 - Java Esencial](https://github.com/ewatemberg/java-4-beginners/blob/master/docs/01%20-%20JAVA%20ESENCIAL.md) - Introduccion a Java
 * [02 - Introducción POO](https://github.com/ewatemberg/java-4-beginners/blob/master/docs/02%20-%20INTRODUCCION%20POO.md) - Introduccion a la Programación Orientada a Objetos
-* [03 - Introducción POO II](https://github.com/ewatemberg/java-4-beginners/blob/master/docs/03%20-%20INTRODUCCION%20POO%20II.md) - Herencia, Polimorfismo...
 
-
-###### Autor
-
-* *Emilio Watemberg*
 
 ###### Fuente
 
