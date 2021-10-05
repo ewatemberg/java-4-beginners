@@ -1,4 +1,5 @@
 ## PREGUNTAS DE ENTREVISTAS
+Toda la documentación (preguntas y respuestas) tiene ejemplos en codigo.
 
 ## Tabla de Contenidos
 
