@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Exercise-1/src/main/java/com/java4beginners/poo"/>
+	<classpathentry kind="src" path="IntroductionToJavaPlatform"/>
+	<classpathentry kind="src" path="IntroductionToPOO/src"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

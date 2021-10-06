@@ -1,0 +1,1 @@
+"Construye una clase de Moto (Bike) que permita ajustar su velocidad (speed). El objetivo consiste en crear algunos objetos y jugar con ellos. Comprender los conceptos de clase, objeto, estado, comportamiento así también encapsulación y abstracción."
