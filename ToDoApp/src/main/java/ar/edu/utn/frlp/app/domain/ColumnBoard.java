@@ -1,5 +1,7 @@
 package ar.edu.utn.frlp.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class ColumnBoard {
     @ManyToOne
     private Board board;
     @OneToMany(mappedBy = "columnBoard")
+    @JsonIgnoreProperties(value = {"columnBoard"}, allowSetters = true)
     private List<Card> cards;
 
     public ColumnBoard() {

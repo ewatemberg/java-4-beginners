@@ -38,14 +38,14 @@ _Ejecutar por consola desde la carpeta del proyecto_
 ##### Visualizar la documentación de la API Rest
 _Abrir el navegador y poner la siguiente URL_
 
-    http://server:port/context-path/swagger-ui.html
+    http://localhost:8080/todo/swagger-ui.html
 
 ![](docs/api-doc.png)
 
 ##### Conectarse a la BD mediante la consola de H2
 _Usar la consola de H2 para visualizar los datos de la BD_
 
-    http://localhost:8080/h2-console
+    http://localhost:8080/todo/h2-console
 
 * JDBC URL: jdbc:h2:./data/tododb
 * User Name: h2-sa

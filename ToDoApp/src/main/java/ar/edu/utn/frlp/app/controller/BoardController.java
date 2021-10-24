@@ -5,6 +5,7 @@ import ar.edu.utn.frlp.app.controller.util.PaginationUtil;
 import ar.edu.utn.frlp.app.controller.util.ResponseUtil;
 import ar.edu.utn.frlp.app.domain.Board;
 import ar.edu.utn.frlp.app.service.BoardService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
+    @Operation(summary = "Crea un nuevo tablero")
     @PostMapping("/api/" + ApiVersion.V1 + "/boards")
     public ResponseEntity<Board> createBoard(@RequestBody Board board) throws URISyntaxException {
         log.debug("REST request to save Board : {}", board);
@@ -37,6 +39,7 @@ public class BoardController {
                 .body(result);
     }
 
+    @Operation(summary = "Actualiza un tablero de forma completa")
     @PutMapping("/api/" + ApiVersion.V1 + "/boards/{id}")
     public ResponseEntity<Board> updateBoard(
             @PathVariable(value = "id", required = false) final Long id,
@@ -48,6 +51,7 @@ public class BoardController {
                 .body(result);
     }
 
+    @Operation(summary = "Actualiza un tablero de forma parcial")
     @PatchMapping(value = "/api/" + ApiVersion.V1 + "/boards/{id}", consumes = "application/merge-patch+json")
     public ResponseEntity<Board> partialUpdateBoard(
             @PathVariable(value = "id", required = false) final Long id,
@@ -57,6 +61,7 @@ public class BoardController {
         return ResponseUtil.wrapOrNotFound(result, null);
     }
 
+    @Operation(summary = "Obtiene todo los tableros paginados")
     @GetMapping("/api/" + ApiVersion.V1 + "/boards")
     public ResponseEntity<List<Board>> getAllBoards(Pageable pageable) {
         log.debug("REST request to get a page of Board");
@@ -65,6 +70,7 @@ public class BoardController {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @Operation(summary = "Obtiene un tablero por id")
     @GetMapping("/api/" + ApiVersion.V1 + "/boards/{id}")
     public ResponseEntity<Board> getBoard(@PathVariable Long id) {
         log.debug("REST request to get Board : {}", id);
@@ -72,6 +78,7 @@ public class BoardController {
         return ResponseUtil.wrapOrNotFound(board);
     }
 
+    @Operation(summary = "Elimina un tablero por id")
     @DeleteMapping("/api/" + ApiVersion.V1 + "/boards/{id}")
     public ResponseEntity<Void> deleteBoard(@PathVariable Long id) {
         log.debug("REST request to delete Board : {}", id);

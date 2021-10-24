@@ -5,6 +5,7 @@ import ar.edu.utn.frlp.app.controller.util.PaginationUtil;
 import ar.edu.utn.frlp.app.controller.util.ResponseUtil;
 import ar.edu.utn.frlp.app.domain.ColumnBoard;
 import ar.edu.utn.frlp.app.service.ColumnBoardService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class ColumnBoardController {
     @Autowired
     private ColumnBoardService columnBoardService;
 
+    @Operation(summary = "Crea una nueva columna")
     @PostMapping("/api/" + ApiVersion.V1 + "/columns")
     public ResponseEntity<ColumnBoard> createColumn(@RequestBody ColumnBoard columnBoard) throws URISyntaxException {
         log.debug("REST request to save Column : {}", columnBoard);
@@ -37,6 +39,7 @@ public class ColumnBoardController {
                 .body(result);
     }
 
+    @Operation(summary = "Actualiza una columna de forma completa")
     @PutMapping("/api/" + ApiVersion.V1 + "/columns/{id}")
     public ResponseEntity<ColumnBoard> updateColumn(
             @PathVariable(value = "id", required = false) final Long id,
@@ -48,6 +51,7 @@ public class ColumnBoardController {
                 .body(result);
     }
 
+    @Operation(summary = "Actualiza una columna de forma parcial")
     @PatchMapping(value = "/api/" + ApiVersion.V1 + "/columns/{id}", consumes = "application/merge-patch+json")
     public ResponseEntity<ColumnBoard> partialUpdateColumn(
             @PathVariable(value = "id", required = false) final Long id,
@@ -57,6 +61,7 @@ public class ColumnBoardController {
         return ResponseUtil.wrapOrNotFound(result, null);
     }
 
+    @Operation(summary = "Obtiene todo las columnas paginadas")
     @GetMapping("/api/" + ApiVersion.V1 + "/columns")
     public ResponseEntity<List<ColumnBoard>> getAllColumns(Pageable pageable) {
         log.debug("REST request to get a page of Column");
@@ -65,6 +70,7 @@ public class ColumnBoardController {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @Operation(summary = "Obtiene una columna por id")
     @GetMapping("/api/" + ApiVersion.V1 + "/columns/{id}")
     public ResponseEntity<ColumnBoard> getColumn(@PathVariable Long id) {
         log.debug("REST request to get Column : {}", id);
@@ -72,6 +78,7 @@ public class ColumnBoardController {
         return ResponseUtil.wrapOrNotFound(column);
     }
 
+    @Operation(summary = "Elimina una columna por id")
     @DeleteMapping("/api/" + ApiVersion.V1 + "/columns/{id}")
     public ResponseEntity<Void> deleteColumn(@PathVariable Long id) {
         log.debug("REST request to delete Column : {}", id);

@@ -5,6 +5,7 @@ import ar.edu.utn.frlp.app.controller.util.PaginationUtil;
 import ar.edu.utn.frlp.app.controller.util.ResponseUtil;
 import ar.edu.utn.frlp.app.domain.Card;
 import ar.edu.utn.frlp.app.service.CardService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class CardController {
     @Autowired
     private CardService cardService;
 
+    @Operation(summary = "Crea una nueva tarjeta")
     @PostMapping("/api/" + ApiVersion.V1 + "/cards")
     public ResponseEntity<Card> createCard(@RequestBody Card card) throws URISyntaxException {
         log.debug("REST request to save Card : {}", card);
@@ -37,6 +39,7 @@ public class CardController {
                 .body(result);
     }
 
+    @Operation(summary = "Actualiza una tarjeta de forma completa")
     @PutMapping("/api/" + ApiVersion.V1 + "/cards/{id}")
     public ResponseEntity<Card> updateCard(
             @PathVariable(value = "id", required = false) final Long id,
@@ -48,6 +51,7 @@ public class CardController {
                 .body(result);
     }
 
+    @Operation(summary = "Actualiza una tarjeta de forma parcial")
     @PatchMapping(value = "/api/" + ApiVersion.V1 + "/cards/{id}", consumes = "application/merge-patch+json")
     public ResponseEntity<Card> partialUpdateCard(
             @PathVariable(value = "id", required = false) final Long id,
@@ -57,6 +61,7 @@ public class CardController {
         return ResponseUtil.wrapOrNotFound(result, null);
     }
 
+    @Operation(summary = "Obtiene todas las tarjetas paginadas")
     @GetMapping("/api/" + ApiVersion.V1 + "/cards")
     public ResponseEntity<List<Card>> getAllCards(Pageable pageable) {
         log.debug("REST request to get a page of Card");
@@ -65,6 +70,7 @@ public class CardController {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @Operation(summary = "Obtiene una tarjeta por id")
     @GetMapping("/api/" + ApiVersion.V1 + "/cards/{id}")
     public ResponseEntity<Card> getCard(@PathVariable Long id) {
         log.debug("REST request to get Card : {}", id);
@@ -72,6 +78,7 @@ public class CardController {
         return ResponseUtil.wrapOrNotFound(card);
     }
 
+    @Operation(summary = "Elimina una tarjeta por id")
     @DeleteMapping("/api/" + ApiVersion.V1 + "/cards/{id}")
     public ResponseEntity<Void> deleteCard(@PathVariable Long id) {
         log.debug("REST request to delete Card : {}", id);

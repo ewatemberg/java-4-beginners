@@ -5,6 +5,11 @@ import ar.edu.utn.frlp.app.controller.util.PaginationUtil;
 import ar.edu.utn.frlp.app.controller.util.ResponseUtil;
 import ar.edu.utn.frlp.app.domain.User;
 import ar.edu.utn.frlp.app.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.awt.print.Book;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -28,6 +34,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Operation(summary = "Crea un nuevo usuario")
     @PostMapping("/api/" + ApiVersion.V1 + "/users")
     public ResponseEntity<User> createUser(@RequestBody User user) throws URISyntaxException {
         log.debug("REST request to save User : {}", user);
@@ -37,6 +44,7 @@ public class UserController {
                 .body(result);
     }
 
+    @Operation(summary = "Actualiza un usuario de forma completa")
     @PutMapping("/api/" + ApiVersion.V1 + "/users/{id}")
     public ResponseEntity<User> updateUser(
             @PathVariable(value = "id", required = false) final Long id,
@@ -48,6 +56,7 @@ public class UserController {
                 .body(result);
     }
 
+    @Operation(summary = "Actualiza un usuario de forma parcial")
     @PatchMapping(value = "/api/" + ApiVersion.V1 + "/users/{id}", consumes = "application/merge-patch+json")
     public ResponseEntity<User> partialUpdateUser(
             @PathVariable(value = "id", required = false) final Long id,
@@ -57,6 +66,7 @@ public class UserController {
         return ResponseUtil.wrapOrNotFound(result, null);
     }
 
+    @Operation(summary = "Obtiene todo los usuarios paginados")
     @GetMapping("/api/" + ApiVersion.V1 + "/users")
     public ResponseEntity<List<User>> getAllUsers(Pageable pageable) {
         log.debug("REST request to get a page of User");
@@ -65,6 +75,7 @@ public class UserController {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @Operation(summary = "Obtiene un usuario por id")
     @GetMapping("/api/" + ApiVersion.V1 + "/users/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
         log.debug("REST request to get User : {}", id);
@@ -72,6 +83,7 @@ public class UserController {
         return ResponseUtil.wrapOrNotFound(user);
     }
 
+    @Operation(summary = "Elimina un usuario por id")
     @DeleteMapping("/api/" + ApiVersion.V1 + "/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         log.debug("REST request to delete User : {}", id);
