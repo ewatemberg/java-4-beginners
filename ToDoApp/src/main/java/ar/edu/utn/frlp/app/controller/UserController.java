@@ -4,6 +4,7 @@ import ar.edu.utn.frlp.app.config.ApiVersion;
 import ar.edu.utn.frlp.app.controller.util.PaginationUtil;
 import ar.edu.utn.frlp.app.controller.util.ResponseUtil;
 import ar.edu.utn.frlp.app.domain.User;
+import ar.edu.utn.frlp.app.dto.UserDTO;
 import ar.edu.utn.frlp.app.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -36,9 +37,9 @@ public class UserController {
 
     @Operation(summary = "Crea un nuevo usuario")
     @PostMapping("/api/" + ApiVersion.V1 + "/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) throws URISyntaxException {
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) throws URISyntaxException {
         log.debug("REST request to save User : {}", user);
-        User result = userService.save(user);
+        UserDTO result = userService.save(user);
         return ResponseEntity
                 .created(new URI("/api/users/" + result.getId()))
                 .body(result);
@@ -46,11 +47,11 @@ public class UserController {
 
     @Operation(summary = "Actualiza un usuario de forma completa")
     @PutMapping("/api/" + ApiVersion.V1 + "/users/{id}")
-    public ResponseEntity<User> updateUser(
+    public ResponseEntity<UserDTO> updateUser(
             @PathVariable(value = "id", required = false) final Long id,
-            @RequestBody User user) {
+            @RequestBody UserDTO user) {
         log.debug("REST request to update User : {}, {}", id, user);
-        User result = userService.save(user);
+        UserDTO result = userService.save(user);
         return ResponseEntity
                 .ok()
                 .body(result);
@@ -58,28 +59,28 @@ public class UserController {
 
     @Operation(summary = "Actualiza un usuario de forma parcial")
     @PatchMapping(value = "/api/" + ApiVersion.V1 + "/users/{id}", consumes = "application/merge-patch+json")
-    public ResponseEntity<User> partialUpdateUser(
+    public ResponseEntity<UserDTO> partialUpdateUser(
             @PathVariable(value = "id", required = false) final Long id,
-            @RequestBody User user) {
+            @RequestBody UserDTO user) {
         log.debug("REST request to partial update User partially : {}, {}", id, user);
-        Optional<User> result = userService.partialUpdate(user);
+        Optional<UserDTO> result = userService.partialUpdate(user);
         return ResponseUtil.wrapOrNotFound(result, null);
     }
 
     @Operation(summary = "Obtiene todo los usuarios paginados")
     @GetMapping("/api/" + ApiVersion.V1 + "/users")
-    public ResponseEntity<List<User>> getAllUsers(Pageable pageable) {
+    public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
         log.debug("REST request to get a page of User");
-        Page<User> page = userService.findAll(pageable);
+        Page<UserDTO> page = userService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     @Operation(summary = "Obtiene un usuario por id")
     @GetMapping("/api/" + ApiVersion.V1 + "/users/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         log.debug("REST request to get User : {}", id);
-        Optional<User> user = userService.findOne(id);
+        Optional<UserDTO> user = userService.findOne(id);
         return ResponseUtil.wrapOrNotFound(user);
     }
 

@@ -1,6 +1,8 @@
 package ar.edu.utn.frlp.app.service;
 
 import ar.edu.utn.frlp.app.domain.User;
+import ar.edu.utn.frlp.app.dto.UserDTO;
+import ar.edu.utn.frlp.app.mapper.UserMapper;
 import ar.edu.utn.frlp.app.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,28 +23,42 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public User save(User user) {
-        log.debug("Request to save User : {}", user);
-        return userRepository.save(user);
+    @Autowired
+    UserMapper userMapper;
+
+    public UserDTO save(UserDTO userDTO) {
+        log.debug("Request to save User : {}", userDTO);
+        User user = userMapper.toEntity(userDTO);
+        user = userRepository.save(user);
+        return userMapper.toDto(user);
     }
 
-    public Optional<User> partialUpdate(User user) {
-        log.debug("Request to partially update User : {}", user);
-        Optional<User> existingUser = userRepository.findById(user.getId());
-        userRepository.save(existingUser.get());
-        return existingUser;
+    public Optional<UserDTO> partialUpdate(UserDTO userDTO) {
+        log.debug("Request to partially update User : {}", userDTO);
+        if (!userRepository.existsById(userDTO.getId()))
+            return Optional.empty();
+        User existingUser = userRepository.findById(userDTO.getId()).get();
+        User userUpdated = userMapper.toEntity(userDTO);
+        existingUser.setId(userUpdated.getId());
+        existingUser.setUsername(userUpdated.getUsername());
+        existingUser.setFirstname(userUpdated.getFirstname());
+        existingUser.setLastname(userUpdated.getLastname());
+        existingUser.setBoards(userUpdated.getBoards());
+        existingUser = userRepository.save(existingUser);
+        return Optional.of(userMapper.toDto(existingUser));
     }
 
     @Transactional(readOnly = true)
-    public Page<User> findAll(Pageable pageable) {
+    public Page<UserDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Users");
-        return userRepository.findAll(pageable);
+        return userRepository.findAll(pageable).map(userMapper::toDto);
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> findOne(Long id) {
+    public Optional<UserDTO> findOne(Long id) {
         log.debug("Request to get User : {}", id);
-        return userRepository.findById(id);
+        Optional<User> user = userRepository.findById(id);
+        return Optional.of(userMapper.toDto(user.get()));
     }
 
     public void delete(Long id) {

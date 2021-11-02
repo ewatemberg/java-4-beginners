@@ -1,6 +1,8 @@
 package ar.edu.utn.frlp.app.service;
 
 import ar.edu.utn.frlp.app.domain.Card;
+import ar.edu.utn.frlp.app.dto.CardDTO;
+import ar.edu.utn.frlp.app.mapper.CardMapper;
 import ar.edu.utn.frlp.app.repository.CardRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,28 +23,41 @@ public class CardService {
     @Autowired
     CardRepository cardRepository;
 
-    public Card save(Card card) {
-        log.debug("Request to save Card : {}", card);
-        return cardRepository.save(card);
+    @Autowired
+    CardMapper cardMapper;
+
+    public CardDTO save(CardDTO cardDTO) {
+        log.debug("Request to save Card : {}", cardDTO);
+        Card card = cardMapper.toEntity(cardDTO);
+        card = cardRepository.save(card);
+        return cardMapper.toDto(card);
     }
 
-    public Optional<Card> partialUpdate(Card card) {
-        log.debug("Request to partially update Card : {}", card);
-        Optional<Card> existingCard = cardRepository.findById(card.getId());
-        cardRepository.save(existingCard.get());
-        return existingCard;
+    public Optional<CardDTO> partialUpdate(CardDTO cardDTO) {
+        log.debug("Request to partially update Card : {}", cardDTO);
+        if (!cardRepository.existsById(cardDTO.getId()))
+            return Optional.empty();
+        Card existingCard = cardRepository.findById(cardDTO.getId()).get();
+        Card cardUpdated = cardMapper.toEntity(cardDTO);
+        existingCard.setId(cardUpdated.getId());
+        existingCard.setDescription(cardUpdated.getDescription());
+        existingCard.setOrder(cardUpdated.getOrder());
+        existingCard.setColumnBoard(cardUpdated.getColumnBoard());
+        existingCard = cardRepository.save(existingCard);
+        return Optional.of(cardMapper.toDto(existingCard));
     }
 
     @Transactional(readOnly = true)
-    public Page<Card> findAll(Pageable pageable) {
+    public Page<CardDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Cards");
-        return cardRepository.findAll(pageable);
+        return cardRepository.findAll(pageable).map(cardMapper::toDto);
     }
 
     @Transactional(readOnly = true)
-    public Optional<Card> findOne(Long id) {
+    public Optional<CardDTO> findOne(Long id) {
         log.debug("Request to get Card : {}", id);
-        return cardRepository.findById(id);
+        Optional<Card> card = cardRepository.findById(id);
+        return Optional.of(cardMapper.toDto(card.get()));
     }
 
     public void delete(Long id) {

@@ -1,6 +1,9 @@
 package ar.edu.utn.frlp.app.service;
 
 import ar.edu.utn.frlp.app.domain.ColumnBoard;
+import ar.edu.utn.frlp.app.dto.ColumnBoardDTO;
+import ar.edu.utn.frlp.app.mapper.CardMapper;
+import ar.edu.utn.frlp.app.mapper.ColumnBoardMapper;
 import ar.edu.utn.frlp.app.repository.ColumnRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,28 +24,44 @@ public class ColumnBoardService {
     @Autowired
     ColumnRepository columnRepository;
 
-    public ColumnBoard save(ColumnBoard columnBoard) {
-        log.debug("Request to save Column : {}", columnBoard);
-        return columnRepository.save(columnBoard);
+    @Autowired
+    ColumnBoardMapper columnBoardMapper;
+
+    @Autowired
+    CardMapper cardMapper;
+
+    public ColumnBoardDTO save(ColumnBoardDTO columnBoardDTO) {
+        log.debug("Request to save Column : {}", columnBoardDTO);
+        ColumnBoard columnBoard = columnBoardMapper.toEntity(columnBoardDTO);
+        columnBoard = columnRepository.save(columnBoard);
+        return columnBoardMapper.toDto(columnBoard);
     }
 
-    public Optional<ColumnBoard> partialUpdate(ColumnBoard columnBoard) {
-        log.debug("Request to partially update Column : {}", columnBoard);
-        Optional<ColumnBoard> existingColumn = columnRepository.findById(columnBoard.getId());
-        columnRepository.save(existingColumn.get());
-        return existingColumn;
+    public Optional<ColumnBoardDTO> partialUpdate(ColumnBoardDTO columnBoardDTO) {
+        log.debug("Request to partially update Column : {}", columnBoardDTO);
+        if (!columnRepository.existsById(columnBoardDTO.getId()))
+            return Optional.empty();
+        ColumnBoard existingColumnBoard = columnRepository.findById(columnBoardDTO.getId()).get();
+        ColumnBoard columnBoardUpdated = columnBoardMapper.toEntity(columnBoardDTO);
+        existingColumnBoard.setId(columnBoardUpdated.getId());
+        existingColumnBoard.setBoard(columnBoardUpdated.getBoard());
+        existingColumnBoard.setCards(columnBoardUpdated.getCards());
+        existingColumnBoard.setOrder(columnBoardUpdated.getOrder());
+        existingColumnBoard = columnRepository.save(existingColumnBoard);
+        return Optional.of((columnBoardMapper.toDto(existingColumnBoard)));
     }
 
     @Transactional(readOnly = true)
-    public Page<ColumnBoard> findAll(Pageable pageable) {
+    public Page<ColumnBoardDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Columns");
-        return columnRepository.findAll(pageable);
+        return columnRepository.findAll(pageable).map(columnBoardMapper::toDto);
     }
 
     @Transactional(readOnly = true)
-    public Optional<ColumnBoard> findOne(Long id) {
+    public Optional<ColumnBoardDTO> findOne(Long id) {
         log.debug("Request to get Column : {}", id);
-        return columnRepository.findById(id);
+        Optional<ColumnBoard> columnBoard = columnRepository.findById(id);
+        return Optional.of(columnBoardMapper.toDto(columnBoard.get()));
     }
 
     public void delete(Long id) {

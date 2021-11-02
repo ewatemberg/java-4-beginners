@@ -4,6 +4,7 @@ import ar.edu.utn.frlp.app.config.ApiVersion;
 import ar.edu.utn.frlp.app.controller.util.PaginationUtil;
 import ar.edu.utn.frlp.app.controller.util.ResponseUtil;
 import ar.edu.utn.frlp.app.domain.Board;
+import ar.edu.utn.frlp.app.dto.BoardDTO;
 import ar.edu.utn.frlp.app.service.BoardService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.slf4j.Logger;
@@ -31,9 +32,9 @@ public class BoardController {
 
     @Operation(summary = "Crea un nuevo tablero")
     @PostMapping("/api/" + ApiVersion.V1 + "/boards")
-    public ResponseEntity<Board> createBoard(@RequestBody Board board) throws URISyntaxException {
+    public ResponseEntity<BoardDTO> createBoard(@RequestBody BoardDTO board) throws URISyntaxException {
         log.debug("REST request to save Board : {}", board);
-        Board result = boardService.save(board);
+        BoardDTO result = boardService.save(board);
         return ResponseEntity
                 .created(new URI("/api/board/" + result.getId()))
                 .body(result);
@@ -41,11 +42,11 @@ public class BoardController {
 
     @Operation(summary = "Actualiza un tablero de forma completa")
     @PutMapping("/api/" + ApiVersion.V1 + "/boards/{id}")
-    public ResponseEntity<Board> updateBoard(
+    public ResponseEntity<BoardDTO> updateBoard(
             @PathVariable(value = "id", required = false) final Long id,
-            @RequestBody Board board) {
+            @RequestBody BoardDTO board) {
         log.debug("REST request to update Board : {}, {}", id, board);
-        Board result = boardService.save(board);
+        BoardDTO result = boardService.save(board);
         return ResponseEntity
                 .ok()
                 .body(result);
@@ -53,28 +54,28 @@ public class BoardController {
 
     @Operation(summary = "Actualiza un tablero de forma parcial")
     @PatchMapping(value = "/api/" + ApiVersion.V1 + "/boards/{id}", consumes = "application/merge-patch+json")
-    public ResponseEntity<Board> partialUpdateBoard(
+    public ResponseEntity<BoardDTO> partialUpdateBoard(
             @PathVariable(value = "id", required = false) final Long id,
-            @RequestBody Board board) {
+            @RequestBody BoardDTO board) {
         log.debug("REST request to partial update Board partially : {}, {}", id, board);
-        Optional<Board> result = boardService.partialUpdate(board);
+        Optional<BoardDTO> result = boardService.partialUpdate(board);
         return ResponseUtil.wrapOrNotFound(result, null);
     }
 
     @Operation(summary = "Obtiene todo los tableros paginados")
     @GetMapping("/api/" + ApiVersion.V1 + "/boards")
-    public ResponseEntity<List<Board>> getAllBoards(Pageable pageable) {
+    public ResponseEntity<List<BoardDTO>> getAllBoards(Pageable pageable) {
         log.debug("REST request to get a page of Board");
-        Page<Board> page = boardService.findAll(pageable);
+        Page<BoardDTO> page = boardService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     @Operation(summary = "Obtiene un tablero por id")
     @GetMapping("/api/" + ApiVersion.V1 + "/boards/{id}")
-    public ResponseEntity<Board> getBoard(@PathVariable Long id) {
+    public ResponseEntity<BoardDTO> getBoard(@PathVariable Long id) {
         log.debug("REST request to get Board : {}", id);
-        Optional<Board> board = boardService.findOne(id);
+        Optional<BoardDTO> board = boardService.findOne(id);
         return ResponseUtil.wrapOrNotFound(board);
     }
 

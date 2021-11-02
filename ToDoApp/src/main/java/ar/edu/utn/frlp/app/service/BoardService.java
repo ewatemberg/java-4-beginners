@@ -1,6 +1,8 @@
 package ar.edu.utn.frlp.app.service;
 
 import ar.edu.utn.frlp.app.domain.Board;
+import ar.edu.utn.frlp.app.dto.BoardDTO;
+import ar.edu.utn.frlp.app.mapper.BoardMapper;
 import ar.edu.utn.frlp.app.repository.BoardRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,28 +23,40 @@ public class BoardService {
     @Autowired
     BoardRepository boardRepository;
 
-    public Board save(Board board) {
-        log.debug("Request to save Board : {}", board);
-        return boardRepository.save(board);
+    @Autowired
+    BoardMapper boardMapper;
+
+    public BoardDTO save(BoardDTO boardDTO) {
+        log.debug("Request to save Board : {}", boardDTO);
+        Board board = boardMapper.toEntity(boardDTO);
+        board = boardRepository.save(board);
+        return boardMapper.toDto(board);
     }
 
-    public Optional<Board> partialUpdate(Board board) {
-        log.debug("Request to partially update Board : {}", board);
-        Optional<Board> existingBoard = boardRepository.findById(board.getId());
-        boardRepository.save(existingBoard.get());
-        return existingBoard;
+    public Optional<BoardDTO> partialUpdate(BoardDTO boardDTO) {
+        log.debug("Request to partially update Board : {}", boardDTO);
+        if (!boardRepository.existsById(boardDTO.getId()))
+            return Optional.empty();
+        Board existingBoard = boardRepository.findById(boardDTO.getId()).get();
+        Board boardUpdated = boardMapper.toEntity(boardDTO);
+        existingBoard.setId(boardUpdated.getId());
+        existingBoard.setName(boardUpdated.getName());
+        existingBoard.setUser(boardUpdated.getUser());
+        existingBoard = boardRepository.save(existingBoard);
+        return Optional.of(boardMapper.toDto(existingBoard));
     }
 
     @Transactional(readOnly = true)
-    public Page<Board> findAll(Pageable pageable) {
+    public Page<BoardDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Boards");
-        return boardRepository.findAll(pageable);
+        return boardRepository.findAll(pageable).map(boardMapper::toDto);
     }
 
     @Transactional(readOnly = true)
-    public Optional<Board> findOne(Long id) {
+    public Optional<BoardDTO> findOne(Long id) {
         log.debug("Request to get Board : {}", id);
-        return boardRepository.findById(id);
+        Optional<Board> board = boardRepository.findById(id);
+        return Optional.of(boardMapper.toDto(board.get()));
     }
 
     public void delete(Long id) {

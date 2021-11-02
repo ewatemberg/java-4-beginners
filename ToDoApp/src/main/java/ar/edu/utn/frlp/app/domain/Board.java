@@ -1,6 +1,7 @@
 package ar.edu.utn.frlp.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,7 +19,7 @@ public class Board {
     @JsonIgnoreProperties(value = {"cards"}, allowSetters = true)
     private List<ColumnBoard> columnBoards;
     @ManyToOne
-    @JsonIgnoreProperties(value = { "boards"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"boards"}, allowSetters = true)
     private User user;
 
     public Board() {
