@@ -16,6 +16,7 @@ public class CardDTO {
     private String title;
     private String description;
     private Integer order;
+    private Long columnBoardId;
 
     public CardDTO() {
     }
@@ -52,4 +53,11 @@ public class CardDTO {
         this.order = order;
     }
 
+    public Long getColumnBoardId() {
+        return columnBoardId;
+    }
+
+    public void setColumnBoardId(Long columnBoardId) {
+        this.columnBoardId = columnBoardId;
+    }
 }

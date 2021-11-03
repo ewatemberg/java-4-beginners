@@ -2,6 +2,7 @@ package ar.edu.utn.frlp.app.mapper;
 
 import ar.edu.utn.frlp.app.domain.Card;
 import ar.edu.utn.frlp.app.dto.CardDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,6 +11,9 @@ import java.util.List;
 @Component
 public class CardMapper implements EntityMapper<CardDTO, Card> {
 
+    @Autowired
+    ColumnBoardMapper columnBoardMapper;
+
     @Override
     public Card toEntity(CardDTO dto) {
         Card card = new Card();
@@ -17,6 +21,7 @@ public class CardMapper implements EntityMapper<CardDTO, Card> {
         card.setDescription(dto.getDescription());
         card.setOrder(dto.getOrder());
         card.setTitle(dto.getTitle());
+        card.setColumnBoard(columnBoardMapper.fromId(dto.getColumnBoardId()));
         return card;
     }
 
@@ -27,6 +32,8 @@ public class CardMapper implements EntityMapper<CardDTO, Card> {
         cardDTO.setDescription(entity.getDescription());
         cardDTO.setOrder(entity.getOrder());
         cardDTO.setTitle(entity.getTitle());
+        if (entity.getColumnBoard() != null)
+            cardDTO.setColumnBoardId(entity.getColumnBoard().getId());
         return cardDTO;
     }
 

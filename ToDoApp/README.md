@@ -48,7 +48,7 @@ _Usar la consola de H2 para visualizar los datos de la BD_
     http://localhost:8080/todo/h2-console
 
 * JDBC URL: jdbc:h2:./data/tododb
-* User Name: h2-sa
+* User Name: sa
 * Password: password
 
 ![](docs/h2-console.png)
